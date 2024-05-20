@@ -3,7 +3,6 @@ import queue
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
-
 class Grid_Position:
     def __init__(self, x, y):
         self.x = x
@@ -68,8 +67,6 @@ def plot_maze(maze, visited_nodes, path, title, file_name, start, goal):
 
 
 
-
-
 def trace_path(end_node):
     path = []
     current = end_node
@@ -109,51 +106,51 @@ def load_maze(file_path):
     
     return maze, start, goal
 
-             
 
-def gbfs(Grid, dest: Grid_Position, start: Grid_Position):
+def a_star(maze, end, start):
     adj_cell_x = [-1, 0, 0, 1]
     adj_cell_y = [0, -1, 1, 0]
-    visited_blocks = [[False for _ in range(len(Grid[0]))] for _ in range(len(Grid))]
-    q = queue.PriorityQueue()
+
+    open_set = queue.PriorityQueue()
+    closed = [[False for _ in range(len(maze[0]))] for _ in range(len(maze))]
     start_node = Node(start, 0)
-    q.put((0, start_node))
-    visited_blocks[start.x][start.y] = True
+    open_set.put((0, start_node))
+    closed[start.x][start.y] = True
     visited_nodes = []
 
-    while not q.empty():
-        _, current_node = q.get()
+    while not open_set.empty():
+        _, current_node = open_set.get()
         visited_nodes.append(current_node.pos)
-        print(f"GBFS Visiting: ({current_node.pos.x}, {current_node.pos.y})")
-        if current_node.pos.x == dest.x and current_node.pos.y == dest.y:
+        print(f"A* Visiting: ({current_node.pos.x}, {current_node.pos.y})")
+        if current_node.pos.x == end.x and current_node.pos.y == end.y:
             return current_node, visited_nodes
 
         for dx, dy in zip(adj_cell_x, adj_cell_y):
             nx, ny = current_node.pos.x + dx, current_node.pos.y + dy
-            if 0 <= nx < len(Grid) and 0 <= ny < len(Grid[0]) and Grid[nx][ny] == 1:
-                if not visited_blocks[nx][ny]:
-                    visited_blocks[nx][ny] = True
-                    neighbor = Node(Grid_Position(nx, ny), current_node.cost + 1, current_node)
-                    h = heuristic_value(neighbor.pos, dest)
-                    q.put((h, neighbor))
+            if 0 <= nx < len(maze) and 0 <= ny < len(maze[0]) and maze[nx][ny] == 1:
+                if not closed[nx][ny]:
+                    closed[nx][ny] = True
+                    h = heuristic_value(Grid_Position(nx, ny), end)
+                    g = current_node.cost + 1
+                    f = h + g
+                    neighbor = Node(Grid_Position(nx, ny), f, current_node)
+                    open_set.put((f, neighbor))
     return None, visited_nodes
-
 
 def main():
     file_path = 'maze2.txt'
     maze, starting_position, destination = load_maze(file_path)
     
-    # Run GBFS
-    gbfs_result, gbfs_visited_nodes = gbfs(maze, destination, starting_position)
-    if gbfs_result:
-        gbfs_path = trace_path(gbfs_result)
-        plot_maze(maze, gbfs_visited_nodes, gbfs_path, "Greedy Best-First Search Solution", "gbfs_solution.png", starting_position, destination)
-        print("GBFS Path cost = ", gbfs_result.cost)
-        print("GBFS Path:", [(pos.x, pos.y) for pos in gbfs_path])
-        print("GBFS Visited Nodes:", [(pos.x, pos.y) for pos in gbfs_visited_nodes])
+    a_star_result, a_star_visited_nodes = a_star(maze, destination, starting_position)
+    if a_star_result:
+        a_star_path = trace_path(a_star_result)
+        plot_maze(maze, a_star_visited_nodes, a_star_path, "A* Search Solution", "a_star_solution.png", starting_position, destination)
+        print("A* Path cost = ", a_star_result.cost)
+        print("A* Path:", [(pos.x, pos.y) for pos in a_star_path])
+        print("A* Visited Nodes:", [(pos.x, pos.y) for pos in a_star_visited_nodes])
     else:
-        print("GBFS Path does not exist")
-                                    
+        print("A* Path does not exist")
+
 if __name__ == '__main__':
     main()
 
