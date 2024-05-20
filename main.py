@@ -1,5 +1,5 @@
-from search_algorithm.comparison import compare_algorithms
-from search_algorithm.chart import plot_comparison
+from plot_comparison.comparison import compare_algorithms
+from plot_comparison.chart import plot_comparison
 
 if __name__ == '__main__':
     file_path = 'maze2.txt'
