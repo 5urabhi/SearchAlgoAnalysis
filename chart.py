@@ -14,7 +14,7 @@ def plot_comparison(results):
     plt.xlabel('Algorithms')
     plt.ylabel('Path Length')
     plt.title('Path Length Comparison')
-    plt.savefig('path_length_comparison.png')
+    plt.savefig('comparison_charts/path_length_comparison.png')
     plt.close()
 
     # Plot Costs
@@ -23,7 +23,7 @@ def plot_comparison(results):
     plt.xlabel('Algorithms')
     plt.ylabel('Path Cost')
     plt.title('Path Cost Comparison')
-    plt.savefig('path_cost_comparison.png')
+    plt.savefig('comparison_charts/path_cost_comparison.png')
     plt.close()
 
     # Plot Execution Time
@@ -33,14 +33,14 @@ def plot_comparison(results):
     plt.xlabel('Algorithms')
     plt.ylabel('Execution Time (seconds)')
     plt.title('Execution Time Comparison')
-    plt.savefig('execution_time_comparison.png')
+    plt.savefig('comparison_charts/execution_time_comparison.png')
     plt.close()
 
 if __name__ == '__main__':
     file_path = 'maze2.txt'
-    results = compare_algorithms(file_path)
-    plot_comparison(results)
+    # results = compare_algorithms(file_path)
+    # plot_comparison(results)
 
-    # Print results for reference
-    for algorithm, cost, path_length, execution_time in results:
-        print(f"{algorithm}: Cost = {cost}, Path Length = {path_length}, Execution Time = {execution_time:.4f} seconds")
+    # # Print results for reference
+    # for algorithm, cost, path_length, execution_time in results:
+    #     print(f"{algorithm}: Cost = {cost}, Path Length = {path_length}, Execution Time = {execution_time:.4f} seconds")
