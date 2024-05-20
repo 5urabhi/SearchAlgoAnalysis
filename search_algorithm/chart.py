@@ -14,7 +14,7 @@ def plot_comparison(results):
     plt.xlabel('Algorithms')
     plt.ylabel('Path Length')
     plt.title('Path Length Comparison')
-    plt.savefig('comparison_charts/path_length_comparison.png')
+    plt.savefig('charts/path_length_comparison.png')
     plt.close()
 
     # Plot Costs
@@ -23,7 +23,7 @@ def plot_comparison(results):
     plt.xlabel('Algorithms')
     plt.ylabel('Path Cost')
     plt.title('Path Cost Comparison')
-    plt.savefig('comparison_charts/path_cost_comparison.png')
+    plt.savefig('charts/path_cost_comparison.png')
     plt.close()
 
     # Plot Execution Time
@@ -33,7 +33,7 @@ def plot_comparison(results):
     plt.xlabel('Algorithms')
     plt.ylabel('Execution Time (seconds)')
     plt.title('Execution Time Comparison')
-    plt.savefig('comparison_charts/execution_time_comparison.png')
+    plt.savefig('charts/execution_time_comparison.png')
     plt.close()
 
 if __name__ == '__main__':

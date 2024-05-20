@@ -1,8 +1,8 @@
-from A_star import a_star
-from BFS import bfs
-from DFS import dfs
-from gbfs import gbfs, Grid_Position, trace_path, load_maze, plot_maze
-from chart import plot_comparison
+from search_algorithm.A_star import a_star
+from search_algorithm.BFS import bfs
+from search_algorithm.DFS import dfs
+from search_algorithm.gbfs import gbfs, Grid_Position, trace_path, load_maze, plot_maze
+from search_algorithm.chart import plot_comparison
 import time
 
 def compare_algorithms(file_path):
